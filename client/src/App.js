@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 
+import Form from './components/Form'
+import Clubs from './components/Clubs'
+
 const App = () => {
   const [clubData, setClubData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -9,7 +12,7 @@ const App = () => {
     const fetchData = async () => {
       try {
         const result = await axios.get(`http://localhost:3001/`)
-        console.log(result)
+        console.log(result.data)
         setClubData(result.data)
         setIsLoading(false)
       } catch (err) {
@@ -20,16 +23,9 @@ const App = () => {
   }, [])
   return (
     <>
+      <Form setClubData={setClubData} />
       {isLoading && <div>Loading </div>}
-      {!isLoading &&
-        clubData.map((item) => {
-          return (
-            <>
-              <div>{item.club}</div>
-              <div>{item._id}</div>
-            </>
-          )
-        })}
+      {!isLoading && <Clubs clubData={clubData} />}
     </>
   )
 }
