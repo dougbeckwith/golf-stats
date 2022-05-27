@@ -7,7 +7,10 @@ const Club = require('./models/Club.js')
 dotenv.config({path: '../.env'})
 let cors = require('cors')
 
+// Need to connect front end to backend
 app.use(cors())
+// Need for incoming data in the req.body
+app.use(express.json())
 
 const connectDataBase = async () => {
   try {
@@ -21,16 +24,24 @@ const connectDataBase = async () => {
 }
 connectDataBase()
 
-app.get('/', async (req, res) => {
+app.get('/clubs', async (req, res) => {
   const data = await Club.find({})
-  console.log(data)
   res.send(data)
 })
 
-app.get('/insert', async (req, res) => {
-  const club = new Club({club: '8 Iron'})
+app.post('/clubs', async (req, res) => {
+  const data = req.body
+  const club = new Club(data)
   await club.save()
   res.send('Data inserted')
+})
+
+app.delete('/clubs/:id', async (req, res) => {
+  const id = req.params.id
+  const deltedItem = await Club.findByIdAndDelete(id)
+  console.log(`${deltedItem} removed from database`)
+  const data = await Club.find({})
+  res.send(data)
 })
 
 app.listen(port, () => {
