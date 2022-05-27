@@ -1,12 +1,22 @@
 import React from 'react'
 import {v4 as uuidv4} from 'uuid'
+import axios from 'axios'
 
-const Clubs = ({clubData}) => {
+const Clubs = ({clubData, setClubData}) => {
+  const handleDelete = async (id) => {
+    const newData = await axios.delete(`http://localhost:3001/clubs/${id}`)
+    setClubData(newData.data)
+  }
+
   return clubData.map((item) => {
-    const id = uuidv4()
+    const key = uuidv4()
+    const id = item._id
     return (
-      <div key={id}>
-        <div>{item.club}</div>
+      <div key={key}>
+        <div>
+          {item.club}
+          <button onClick={() => handleDelete(id)}>Delete</button>
+        </div>
       </div>
     )
   })

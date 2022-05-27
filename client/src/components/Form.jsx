@@ -7,7 +7,7 @@ const Form = ({setClubData}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:3001/insert', {club: club})
+      await axios.post('http://localhost:3001/clubs', {club: club})
       setClubData((prevData) => {
         return [...prevData, {club: club}]
       })

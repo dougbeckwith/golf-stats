@@ -11,7 +11,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(`http://localhost:3001/`)
+        const result = await axios.get(`http://localhost:3001/clubs`)
         console.log(result.data)
         setClubData(result.data)
         setIsLoading(false)
@@ -25,7 +25,7 @@ const App = () => {
     <>
       <Form setClubData={setClubData} />
       {isLoading && <div>Loading </div>}
-      {!isLoading && <Clubs clubData={clubData} />}
+      {!isLoading && <Clubs clubData={clubData} setClubData={setClubData} />}
     </>
   )
 }
