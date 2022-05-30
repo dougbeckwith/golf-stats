@@ -3,6 +3,7 @@ const {Schema} = mongoose
 
 const clubSchema = new Schema({
   clubName: String,
+  brand: String,
   yards: Array,
   totalShots: Number,
 })
