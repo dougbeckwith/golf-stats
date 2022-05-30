@@ -44,6 +44,18 @@ app.delete('/clubs/:id', async (req, res) => {
   res.send(data)
 })
 
+app.patch('/clubs/:id', async (req, res) => {
+  const id = req.params.id
+  const shot = req.body.shot
+  const club = await Club.find({_id: id})
+  await Club.findOneAndUpdate(
+    {_id: id},
+    {yards: [...club[0].yards, shot], totalShots: club[0].totalShots + 1}
+  )
+  const data = await Club.find({})
+  res.send(data)
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
