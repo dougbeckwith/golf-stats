@@ -2,15 +2,17 @@ import React, {useState} from 'react'
 import axios from 'axios'
 
 const Form = ({setClubData}) => {
-  const [club, setClub] = useState('')
+  const [clubName, setClub] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:3001/clubs', {club: club})
-      setClubData((prevData) => {
-        return [...prevData, {club: club}]
+      const result = await axios.post('http://localhost:3001/clubs', {
+        clubName: clubName,
+        yards: [],
+        totalShots: 0,
       })
+      setClubData(result.data)
     } catch (err) {
       console.log(err)
     }

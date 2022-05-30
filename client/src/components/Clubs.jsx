@@ -7,14 +7,29 @@ const Clubs = ({clubData, setClubData}) => {
     const newData = await axios.delete(`http://localhost:3001/clubs/${id}`)
     setClubData(newData.data)
   }
+  const getAverageYards = (club) => {
+    let totalYards = 0
+    let shots = club.totalShots
+    if (shots === 0) {
+      return 0
+    } else {
+      club.yards.forEach((shot) => {
+        totalYards += shot
+      })
+      return totalYards / shots
+    }
+  }
 
-  return clubData.map((item) => {
+  return clubData.map((club) => {
+    const averageYards = getAverageYards(club)
     const key = uuidv4()
-    const id = item._id
+    const id = club._id
     return (
       <div key={key}>
         <div>
-          {item.club}
+          <div>{club.clubName}</div>
+          <div>Shot Total {club.totalShots}</div>
+          <div>Avg Yards {averageYards}</div>
           <button onClick={() => handleDelete(id)}>Delete</button>
         </div>
       </div>

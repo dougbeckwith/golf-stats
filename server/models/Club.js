@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const {Schema} = mongoose
 
 const clubSchema = new Schema({
-  club: String,
+  clubName: String,
   yards: Array,
-  shots: Number,
+  totalShots: Number,
 })
 
 const Club = mongoose.model('Club', clubSchema)

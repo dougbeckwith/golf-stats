@@ -33,13 +33,13 @@ app.post('/clubs', async (req, res) => {
   const data = req.body
   const club = new Club(data)
   await club.save()
-  res.send('Data inserted')
+  const newClubData = await Club.find({})
+  res.send(newClubData)
 })
 
 app.delete('/clubs/:id', async (req, res) => {
   const id = req.params.id
-  const deltedItem = await Club.findByIdAndDelete(id)
-  console.log(`${deltedItem} removed from database`)
+  await Club.findByIdAndDelete(id)
   const data = await Club.find({})
   res.send(data)
 })
