@@ -4,15 +4,12 @@ import {Modal, Form, Button} from 'react-bootstrap'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 
-const AddShotModal = ({
-  addShotHandleClose,
-  addShotHandleShow,
-  showAddShotModal,
-  setClubData,
-  club,
-}) => {
+const AddShotModal = ({setClubData, club}) => {
   const [shot, setShot] = useState('')
   const [warning, setWarning] = useState(false)
+  const [showAddShotModal, setshowAddShotModal] = useState(false)
+  const addShotHandleClose = () => setshowAddShotModal(false)
+  const addShotHandleShow = () => setshowAddShotModal(true)
   const id = club._id
 
   const warningMessage = () => {
@@ -28,6 +25,7 @@ const AddShotModal = ({
   }
 
   const handleSubmit = async (id) => {
+    console.log(id, 'shot id')
     if (isNan(shot) === false) {
       const result = await axios.patch(`http://localhost:3001/clubs/${id}`, {
         shot: parseInt(shot),

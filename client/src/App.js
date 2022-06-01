@@ -33,25 +33,24 @@ const App = () => {
   }, [])
   return (
     <>
-      <Container className='pt-3'>
-        <Stack direction='horizontal' gap='2' className='mb-4'>
-          <h1 className='me-auto'>Golf Tracker</h1>
-          <AddClubModal
-            show={show}
-            handleClose={handleClose}
-            handleShow={handleShow}
-            setClubData={setClubData}
-          />
-        </Stack>
-        {isLoading && <div>Loading </div>}
-        {!isLoading && (
-          <ClubCard
-            clubData={clubData}
-            setClubData={setClubData}
-            // addShotHandleShow={addShotHandleShow}
-          />
-        )}
-      </Container>
+      <div className='bg-light min-vh-100'>
+        <Container className='pt-3'>
+          <Stack direction='horizontal' gap='2' className='mb-4'>
+            <h1 className='me-auto'>Golf Tracker</h1>
+            <AddClubModal
+              show={show}
+              handleClose={handleClose}
+              handleShow={handleShow}
+              setClubData={setClubData}
+            />
+          </Stack>
+
+          {isLoading && <div>Loading </div>}
+          {!isLoading && (
+            <ClubCard clubData={clubData} setClubData={setClubData} />
+          )}
+        </Container>
+      </div>
     </>
   )
 }

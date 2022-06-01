@@ -3,18 +3,15 @@ import {useState} from 'react'
 import {Modal, Form, Button} from 'react-bootstrap'
 import axios from 'axios'
 
-const AddShotModal = ({
-  handleCloseGoalModal,
-  handleShowGoalModal,
-  showGoalModal,
-  setClubData,
-  club,
-}) => {
+const AddShotModal = ({setClubData, club}) => {
   const [goal, setGoal] = useState()
+  const [showGoalModal, setShowGoalModal] = useState(false)
+  const handleCloseGoalModal = () => setShowGoalModal(false)
+  const handleShowGoalModal = () => setShowGoalModal(true)
   const id = club._id
 
   const handleSubmit = async (id) => {
-    console.log(id)
+    console.log(id, 'goal id')
     const result = await axios.patch(`http://localhost:3001/clubs/${id}`, {
       goal: parseInt(goal),
       club: club,

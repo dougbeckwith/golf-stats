@@ -6,16 +6,6 @@ import AddShotModal from './AddShotModal'
 import AddGoalModal from './AddGoalModal'
 
 export default function BudgetCard({clubData, setClubData}) {
-  // Add shot modal state
-  const [showAddShotModal, setshowAddShotModal] = useState(false)
-  const addShotHandleClose = () => setshowAddShotModal(false)
-  const addShotHandleShow = () => setshowAddShotModal(true)
-
-  // Add goal modal state
-  const [showGoalModal, setShowGoalModal] = useState(false)
-  const handleCloseGoalModal = () => setShowGoalModal(false)
-  const handleShowGoalModal = () => setShowGoalModal(true)
-
   // Progress bar state
 
   const handleDelete = async (id) => {
@@ -45,6 +35,10 @@ export default function BudgetCard({clubData, setClubData}) {
     }
   }
   return clubData.map((club) => {
+    // Add shot modal state
+
+    // Add goal modal state
+
     const averageYards = getAverageYards(club)
 
     const goal = getGoalYards(club)
@@ -52,7 +46,7 @@ export default function BudgetCard({clubData, setClubData}) {
     const key = uuidv4()
     const id = club._id
     return (
-      <Card key={key} className='mb-2'>
+      <Card key={key} className='m-0'>
         <Card.Body>
           <div className='fs-3 d-flex justify-content-between align-items-baseline fw-normal'>
             <div className='me-2'>{club.clubName}</div>
@@ -68,26 +62,28 @@ export default function BudgetCard({clubData, setClubData}) {
           <div className='m-1 fs-6'>Goal: {goal} Yards</div>
           {showProgress && (
             <ProgressBar
-              className='rounded-pill'
+              style={{height: 30}}
+              className='rounded-pill h-4'
               // variant={getProgressBarVariant(amount, max)}
               min={0}
               max={goal}
               now={averageYards}
+              label={`Goal: ${averageYards} / ${goal}`}
             />
           )}
 
           <Stack direction='horizontal' gap='2' className='mt-4 flex flex-wrap'>
             <AddShotModal
-              showAddShotModal={showAddShotModal}
-              addShotHandleClose={addShotHandleClose}
-              addShotHandleShow={addShotHandleShow}
+              // showAddShotModal={showAddShotModal}
+              // addShotHandleClose={addShotHandleClose}
+              // addShotHandleShow={addShotHandleShow}
               setClubData={setClubData}
               club={club}
             />
             <AddGoalModal
-              showGoalModal={showGoalModal}
-              handleCloseGoalModal={handleCloseGoalModal}
-              handleShowGoalModal={handleShowGoalModal}
+              // showGoalModal={showGoalModal}
+              // handleCloseGoalModal={handleCloseGoalModal}
+              // handleShowGoalModal={handleShowGoalModal}
               setClubData={setClubData}
               club={club}
             />
