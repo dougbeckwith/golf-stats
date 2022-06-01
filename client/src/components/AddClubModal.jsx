@@ -6,36 +6,23 @@ import axios from 'axios'
 const AddClubModel = ({handleShow, handleClose, show, setClubData}) => {
   const [clubName, setClub] = useState('')
   const [clubBrand, setClubBrand] = useState('')
-  const [isValidated, setIsValidated] = useState(false)
-  const [isMessage, setIsMessage] = useState(false)
-
-  const checkValidation = () => {
-    if (clubBrand.length && clubBrand.length) {
-      setIsValidated(true)
-    } else {
-      setIsValidated(false)
-      setIsMessage(true)
-    }
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    checkValidation()
-    if (isValidated === true) {
-      console.log(clubBrand)
-      try {
-        const result = await axios.post('http://localhost:3001/clubs', {
-          clubName: clubName,
-          brand: clubBrand,
-          yards: [],
-          totalShots: 0,
-        })
-        setClubData(result.data)
-        handleClose()
-        setIsMessage(false)
-      } catch (err) {
-        console.log(err)
-      }
+    try {
+      const result = await axios.post('http://localhost:3001/clubs', {
+        clubName: clubName,
+        brand: clubBrand,
+        yards: [],
+        totalShots: 0,
+        goal: 0,
+      })
+      setClubData(result.data)
+      setClub('')
+      setClubBrand('')
+      handleClose()
+    } catch (err) {
+      console.log(err)
     }
   }
   const handleClubNameChange = (e) => {
@@ -74,9 +61,6 @@ const AddClubModel = ({handleShow, handleClose, show, setClubData}) => {
               />
             </Form.Group>
           </Form>
-          {isMessage && (
-            <div className='text-danger'>Please Fill Out All Inputs</div>
-          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={handleClose}>

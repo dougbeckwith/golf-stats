@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const Club = require('./models/Club.js')
 dotenv.config({path: '../.env'})
 let cors = require('cors')
+const e = require('express')
 
 // Need to connect front end to backend
 app.use(cors())
@@ -47,11 +48,21 @@ app.delete('/clubs/:id', async (req, res) => {
 app.patch('/clubs/:id', async (req, res) => {
   const id = req.params.id
   const shot = req.body.shot
-  const club = await Club.find({_id: id})
-  await Club.findOneAndUpdate(
-    {_id: id},
-    {yards: [...club[0].yards, shot], totalShots: club[0].totalShots + 1}
-  )
+  const goal = req.body.goal
+  const club = req.body.club
+  console.log(shot)
+  console.log(goal)
+  console.log(club)
+
+  if (shot !== undefined) {
+    // const club = await Club.find({_id: id})
+    await Club.findOneAndUpdate(
+      {_id: id},
+      {yards: [...club.yards, shot], totalShots: club.totalShots + 1}
+    )
+  } else {
+    await Club.findOneAndUpdate({_id: id}, {goal: goal})
+  }
   const data = await Club.find({})
   res.send(data)
 })

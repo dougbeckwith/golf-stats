@@ -6,6 +6,7 @@ const clubSchema = new Schema({
   brand: String,
   yards: Array,
   totalShots: Number,
+  goal: Number,
 })
 
 const Club = mongoose.model('Club', clubSchema)

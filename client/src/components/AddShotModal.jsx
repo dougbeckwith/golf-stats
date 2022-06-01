@@ -2,23 +2,52 @@ import React from 'react'
 import {useState} from 'react'
 import {Modal, Form, Button} from 'react-bootstrap'
 import axios from 'axios'
+import Alert from 'react-bootstrap/Alert'
 
 const AddShotModal = ({
   addShotHandleClose,
   addShotHandleShow,
   showAddShotModal,
   setClubData,
+  club,
 }) => {
-  const [shot, setShot] = useState()
-  const handleSubmit = async (id) => {
-    const result = await axios.patch(`http://localhost:3001/clubs/${id}`, {
-      shot: parseInt(shot),
-      //   club: club,
-    })
-    setClubData(result.data)
+  const [shot, setShot] = useState('')
+  const [warning, setWarning] = useState(false)
+  const id = club._id
+
+  const warningMessage = () => {
+    if (warning) {
+      return <Alert variant='danger'>Please enter a number</Alert>
+    } else {
+      console.log('not warning')
+    }
   }
+
+  const isNan = (shot) => {
+    return isNaN(shot)
+  }
+
+  const handleSubmit = async (id) => {
+    if (isNan(shot) === false) {
+      const result = await axios.patch(`http://localhost:3001/clubs/${id}`, {
+        shot: parseInt(shot),
+        club: club,
+      })
+      setClubData(result.data)
+      addShotHandleClose()
+    } else {
+      console.log('stop submit')
+      setWarning(true)
+    }
+  }
+
   const handleChange = (e) => {
     setShot(e.target.value)
+    if (isNan(e.target.value) === false) {
+      setWarning(false)
+    } else {
+      setWarning(true)
+    }
   }
 
   return (
@@ -42,6 +71,7 @@ const AddShotModal = ({
                 autoFocus
                 onChange={handleChange}
               />
+              {warning && warningMessage()}
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -49,7 +79,7 @@ const AddShotModal = ({
           <Button variant='secondary' onClick={addShotHandleClose}>
             Cancel
           </Button>
-          <Button variant='primary' onClick={handleSubmit}>
+          <Button variant='primary' onClick={() => handleSubmit(id)}>
             Add
           </Button>
         </Modal.Footer>

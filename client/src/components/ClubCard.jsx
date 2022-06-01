@@ -3,12 +3,20 @@ import axios from 'axios'
 import {v4 as uuidv4} from 'uuid'
 import {useState} from 'react'
 import AddShotModal from './AddShotModal'
+import AddGoalModal from './AddGoalModal'
 
 export default function BudgetCard({clubData, setClubData}) {
   // Add shot modal state
   const [showAddShotModal, setshowAddShotModal] = useState(false)
   const addShotHandleClose = () => setshowAddShotModal(false)
   const addShotHandleShow = () => setshowAddShotModal(true)
+
+  // Add goal modal state
+  const [showGoalModal, setShowGoalModal] = useState(false)
+  const handleCloseGoalModal = () => setShowGoalModal(false)
+  const handleShowGoalModal = () => setShowGoalModal(true)
+
+  // Progress bar state
 
   const handleDelete = async (id) => {
     const newData = await axios.delete(`http://localhost:3001/clubs/${id}`)
@@ -23,11 +31,24 @@ export default function BudgetCard({clubData, setClubData}) {
       club.yards.forEach((shot) => {
         totalYards += shot
       })
-      return totalYards / shots
+      return (totalYards / shots).toFixed()
+    }
+  }
+  const getGoalYards = (club) => {
+    return club.goal
+  }
+  const isShowProgress = (club) => {
+    if (club.goal === 0) {
+      return false
+    } else {
+      return true
     }
   }
   return clubData.map((club) => {
     const averageYards = getAverageYards(club)
+
+    const goal = getGoalYards(club)
+    const showProgress = isShowProgress(club)
     const key = uuidv4()
     const id = club._id
     return (
@@ -44,20 +65,31 @@ export default function BudgetCard({clubData, setClubData}) {
             <div className='m-0'>Total Shots: {club.totalShots}</div>
           </div>
 
-          <div className='m-1 fs-6'>Goal 100/200 Yards</div>
-          <ProgressBar
-            className='rounded-pill'
-            // variant={getProgressBarVariant(amount, max)}
-            min={0}
-            max={1000}
-            now={500}
-          />
+          <div className='m-1 fs-6'>Goal: {goal} Yards</div>
+          {showProgress && (
+            <ProgressBar
+              className='rounded-pill'
+              // variant={getProgressBarVariant(amount, max)}
+              min={0}
+              max={goal}
+              now={averageYards}
+            />
+          )}
+
           <Stack direction='horizontal' gap='2' className='mt-4 flex flex-wrap'>
             <AddShotModal
               showAddShotModal={showAddShotModal}
               addShotHandleClose={addShotHandleClose}
               addShotHandleShow={addShotHandleShow}
               setClubData={setClubData}
+              club={club}
+            />
+            <AddGoalModal
+              showGoalModal={showGoalModal}
+              handleCloseGoalModal={handleCloseGoalModal}
+              handleShowGoalModal={handleShowGoalModal}
+              setClubData={setClubData}
+              club={club}
             />
             <Button
               onClick={() => console.log('View shots')}
