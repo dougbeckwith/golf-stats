@@ -1,7 +1,6 @@
 import {Button, Card, ProgressBar, Stack} from 'react-bootstrap'
 import axios from 'axios'
 import {v4 as uuidv4} from 'uuid'
-import {useState} from 'react'
 import AddShotModal from './AddShotModal'
 import AddGoalModal from './AddGoalModal'
 

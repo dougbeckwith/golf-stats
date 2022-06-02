@@ -1,37 +1,36 @@
 import React from 'react'
+import {useState} from 'react'
 
 const Login = () => {
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const registerUser = async (e) => {
+  const loginUser = async (e) => {
     e.preventDefault()
-    const response = await fetch('http://localhost:3001/api/register', {
+    const response = await fetch('http://localhost:3001/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name,
         email,
         password,
       }),
     })
     const data = await response.json()
+    if (data.user) {
+      alert('login success')
+      window.location.href = '/dashboard'
+    } else {
+      alert('check password and username')
+    }
     console.log(data)
   }
 
   return (
     <>
       <h1>Login</h1>
-      <form onSubmit={registerUser}>
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          type='text'
-          placeholder='name'
-        />
+      <form onSubmit={loginUser}>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}

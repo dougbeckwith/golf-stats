@@ -7,6 +7,7 @@ const Club = require('./models/Club.js')
 const User = require('./models/User')
 dotenv.config({path: '../.env'})
 let cors = require('cors')
+const jwt = require('jsonwebtoken')
 
 // Need to connect front end to backend
 app.use(cors())
@@ -46,7 +47,14 @@ app.post('/api/login', async (req, res) => {
     password: req.body.password,
   })
   if (user) {
-    return res.json({status: 'ok', user: true})
+    const token = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+      },
+      'secret123'
+    )
+    return res.json({status: 'ok', user: token})
   } else {
     return res.json({status: 'error', user: false})
   }
