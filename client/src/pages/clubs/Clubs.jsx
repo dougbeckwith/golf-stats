@@ -6,17 +6,17 @@ const Clubs = () => {
 
 export default Clubs
 
-// useEffect(() => {
-//   // Get club data from database and club data state
-//   const fetchData = async () => {
-//     try {
-//       const result = await axios.get(`http://localhost:3001/clubs`)
-//       console.log(result.data)
-//       setClubData(result.data)
-//       setIsLoading(false)
-//     } catch (err) {
-//       console.log(err)
-//     }
-//   }
-//   fetchData()
-// }, [])
+useEffect(() => {
+  // Get club data from database and club data state
+  const fetchData = async () => {
+    try {
+      const result = await axios.get(`http://localhost:3001/clubs`)
+      console.log(result.data)
+      setClubData(result.data)
+      setIsLoading(false)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  fetchData()
+}, [])
