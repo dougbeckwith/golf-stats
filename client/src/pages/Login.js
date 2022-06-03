@@ -1,9 +1,24 @@
 import React from 'react'
-import {useState} from 'react'
+import {useState, useRef, useEffect} from 'react'
 
 const Login = () => {
+  const userRef = useRef()
+  const errRef = useRef()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errMsg, setErrMsg] = useState('')
+  const [success, setSuccess] = useState(false)
+
+  // Set focus on the first input
+  useEffect(() => {
+    userRef.current.focus()
+  }, [])
+
+  // Empty out error message
+  useEffect(() => {
+    setErrMsg('')
+  }, [user, pwd])
 
   const loginUser = async (e) => {
     e.preventDefault()
@@ -33,17 +48,24 @@ const Login = () => {
       <form onSubmit={loginUser}>
         <input
           value={email}
+          id='email'
+          ref={userRef}
           onChange={(e) => setEmail(e.target.value)}
           type='email'
           placeholder='email'
+          required
         />
         <input
           value={password}
+          id='password'
+          ref={userRef}
           onChange={(e) => setPassword(e.target.value)}
           type='password'
           placeholder='password'
+          required
         />
         <input type='submit' value='register' />
+        <p>{errMsg}</p>
       </form>
     </>
   )
