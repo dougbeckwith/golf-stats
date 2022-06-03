@@ -1,3 +1,11 @@
+import React from 'react'
+
+const Register = () => {
+  return <div>Register</div>
+}
+
+export default Register
+
 // import React from 'react'
 // import {useState} from 'react'
 
