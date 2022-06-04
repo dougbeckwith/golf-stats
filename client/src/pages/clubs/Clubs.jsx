@@ -5,9 +5,8 @@ import ClubItem from '../../components/ClubItem'
 import ClubList from '../../components/ClubList'
 import {Link} from 'react-router-dom'
 
-const Clubs = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [clubData, setClubData] = useState([])
+const Clubs = ({clubData, setClubData, isLoading, setIsLoading}) => {
+  // const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     // Call Server to get Club Data
     const getAllClubData = async () => {
@@ -22,15 +21,12 @@ const Clubs = () => {
     }
     getAllClubData()
   }, [])
-
   return (
-    <div className='divide-y divide-slate-100'>
-      <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <h1>Clubs</h1>
-        <Link to='/clubs/add'>
-          <button>Add CLub</button>
-        </Link>
-      </div>
+    <>
+      <h1>Clubs</h1>
+      <Link to='/clubs/add'>
+        <button>Add CLub</button>
+      </Link>
 
       {isLoading ? (
         <div>Loading</div>
@@ -43,7 +39,7 @@ const Clubs = () => {
           </ClubList>
         </>
       )}
-    </div>
+    </>
   )
 }
 

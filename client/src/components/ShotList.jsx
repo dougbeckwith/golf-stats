@@ -1,7 +1,7 @@
 import React from 'react'
 
-const List = ({children}) => {
+const ShotList = ({children}) => {
   return <div>{children}</div>
 }
 
-export default List
+export default ShotList

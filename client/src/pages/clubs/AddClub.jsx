@@ -64,26 +64,43 @@ const AddClub = () => {
 
   return (
     <>
-      <form style={{paddingTop: '40px'}}>
-        <div style={{padding: '10px'}}>
+      <h1>Add Club</h1>
+      <form style={{paddingTop: '0px'}}>
+        <div style={{paddingTop: '10px'}}>
+          <label htmlFor='club' style={{display: 'block'}}>
+            Club
+          </label>
           <input
+            id='club'
             style={{padding: '15px'}}
             type='text'
             onChange={handleNameChange}
             placeholder='Club'
           />
-          {nameMessage && <div>Enter Club Name</div>}
+          {nameMessage && (
+            <div style={{color: 'red', paddingTop: '10px'}}>
+              Please enter club name
+            </div>
+          )}
         </div>
-        <div style={{padding: '10px'}}>
+        <div style={{paddingTop: '10px'}}>
+          <label htmlFor='brand' style={{display: 'block'}}>
+            Brand
+          </label>
           <input
+            id='brand'
             style={{padding: '15px'}}
             type='text'
             onChange={handleBrandChange}
             placeholder='Brand'
           />
-          {brandMessage && <div>Enter Brand Name</div>}
+          {brandMessage && (
+            <div style={{color: 'red', paddingTop: '10px'}}>
+              Please enter brand name
+            </div>
+          )}
         </div>
-        <div style={{padding: '10px'}}>
+        <div style={{paddingTop: '10px'}}>
           <button onClick={handleSubmit}>Add CLub</button>
           <button onClick={handleCancel}>Cancel</button>
         </div>

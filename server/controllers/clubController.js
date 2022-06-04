@@ -4,7 +4,6 @@ const Club = require('../models/Club')
 // @desc Get All clubs
 // @access Private
 const getClubs = async (req, res) => {
-  console.log('get CLubs')
   try {
     const data = await Club.find({})
     res.send(data)
@@ -18,7 +17,6 @@ const getClubs = async (req, res) => {
 // @desc Add club
 // @access Private
 const addClub = async (req, res) => {
-  console.log('add club')
   try {
     const data = req.body
     const newClub = new Club(data)
@@ -35,26 +33,27 @@ const addClub = async (req, res) => {
 // @desc Update clubs
 // @access Private
 const updateClub = async (req, res) => {
-  console.log('test')
-  try {
-    const {shot, goal, club} = req.body
-    const id = club._id
-    if (shot) {
-      await Club.findOneAndUpdate(
-        {_id: id},
-        {yards: [...club.yards, shot], totalShots: club.totalShots + 1}
-      )
-      const data = await Club.find({})
-      res.send(data)
+  const id = req.params.id
+  const {clubName, clubBrand, shot, club} = req.body
+  if (clubName && clubBrand) {
+    try {
+      await Club.findByIdAndUpdate(id, {
+        clubName: clubName,
+        brand: clubBrand,
+      })
+      res.send('Success')
+    } catch (err) {
+      console.log(err)
+      res.status(500).send('Server Error')
     }
-    if (goal) {
-      await Club.findOneAndUpdate({_id: id}, {goal: goal})
-      const data = await Club.find({})
-      res.send(data)
-    }
-  } catch (err) {
-    console.log(err)
-    res.status(500).send('Server Error')
+  }
+  if (shot !== null) {
+    await Club.findOneAndUpdate(
+      {_id: id},
+      {yards: [...club.yards, shot], totalShots: club.totalShots + 1}
+    )
+    const data = await Club.find({})
+    res.send(data)
   }
 }
 
@@ -64,8 +63,7 @@ const updateClub = async (req, res) => {
 const getClubById = async (req, res) => {
   try {
     const id = req.params.id
-    await Club.findByIdAndDelete(id)
-    const data = await Club.find({})
+    const data = await Club.findById(id)
     res.send(data)
   } catch (err) {
     console.log(err)
@@ -87,6 +85,30 @@ const deleteClubById = async (req, res) => {
     res.status(500).send('Sever Error')
   }
 }
+
+// const updateClub = async (req, res) => {
+//   console.log('test')
+//   try {
+//     const {shot, goal, club} = req.body
+//     const id = club._id
+//     if (shot) {
+//       await Club.findOneAndUpdate(
+//         {_id: id},
+//         {yards: [...club.yards, shot], totalShots: club.totalShots + 1}
+//       )
+//       const data = await Club.find({})
+//       res.send(data)
+//     }
+//     if (goal) {
+//       await Club.findOneAndUpdate({_id: id}, {goal: goal})
+//       const data = await Club.find({})
+//       res.send(data)
+//     }
+//   } catch (err) {
+//     console.log(err)
+//     res.status(500).send('Server Error')
+//   }
+// }
 
 module.exports = {
   addClub,
