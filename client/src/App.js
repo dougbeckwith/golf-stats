@@ -1,25 +1,43 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import {AddClub, EditClub, Clubs, AddShot, EditShot, Shots} from './pages/index'
+import {
+  AddClub,
+  EditClub,
+  Clubs,
+  Club,
+  Landing,
+  Login,
+  NotFound,
+  Register,
+  Layout,
+} from './pages/index'
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/clubs' element={<Clubs />} />
-        <Route path='/clubs/addclub' element={<AddClub />} />
-        <Route path='/clubs/editclub' element={<EditClub />} />
-        <Route path='/shots' element={<Shots />} />
-        <Route path='/shots/addshot' element={<AddShot />} />
-        <Route path='/shots/editshot' element={<EditShot />} />
-      </Routes>
-    </BrowserRouter>
+    <div
+      style={{
+        backgroundColor: 'white',
+        paddingLeft: '40px',
+        paddingRight: '40px',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Landing />} />
+          <Route path='/clubs' element={<Layout />}>
+            <Route index element={<Clubs />} />
+            <Route path=':id' element={<Club />} />
+            <Route path='add' element={<AddClub />} />
+            <Route path='edit/:id' element={<EditClub />} />
+          </Route>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 

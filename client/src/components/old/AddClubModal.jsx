@@ -3,34 +3,6 @@
 // import {Modal, Form, Button} from 'react-bootstrap'
 // import axios from 'axios'
 
-// const AddClubModel = ({handleShow, handleClose, show, setClubData}) => {
-//   const [clubName, setClub] = useState('')
-//   const [clubBrand, setClubBrand] = useState('')
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault()
-//     try {
-//       const result = await axios.post('http://localhost:3001/clubs', {
-//         clubName: clubName,
-//         brand: clubBrand,
-//         yards: [],
-//         totalShots: 0,
-//         goal: 0,
-//       })
-//       setClubData(result.data)
-//       setClub('')
-//       setClubBrand('')
-//       handleClose()
-//     } catch (err) {
-//       console.log(err)
-//     }
-//   }
-//   const handleClubNameChange = (e) => {
-//     setClub(e.target.value)
-//   }
-//   const handleClubBrandChange = (e) => {
-//     setClubBrand(e.target.value)
-//   }
 //   return (
 //     <>
 //       <Button variant='primary' onClick={handleShow}>

@@ -7,7 +7,6 @@ const clubSchema = new Schema(
     brand: String,
     yards: Array,
     totalShots: Number,
-    goal: Number,
   },
   {collection: 'club-data'}
 )

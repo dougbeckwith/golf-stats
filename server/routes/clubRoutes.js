@@ -9,10 +9,11 @@ const {
   deleteClubById,
 } = require('../controllers/clubController')
 
-router.post('/', addClub)
+// Routes
 router.get('/', getClubs)
-router.patch('/:id', updateClub)
 router.get('/:id', getClubById)
+router.post('/', addClub)
+router.patch('/:id', updateClub)
 router.delete('/:id', deleteClubById)
 
 module.exports = router

@@ -18,6 +18,7 @@ const getClubs = async (req, res) => {
 // @desc Add club
 // @access Private
 const addClub = async (req, res) => {
+  console.log('add club')
   try {
     const data = req.body
     const newClub = new Club(data)
