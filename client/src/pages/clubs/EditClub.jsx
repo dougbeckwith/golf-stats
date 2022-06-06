@@ -54,6 +54,7 @@ const EditClub = ({setIsLoading, isLoading}) => {
           shot: null,
           totalShots: null,
           club: club,
+          deleteShot: null,
         })
         setClubName('')
         setClubBrand('')

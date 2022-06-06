@@ -4,6 +4,7 @@ import axios from 'axios'
 import ClubItem from '../../components/ClubItem'
 import ClubList from '../../components/ClubList'
 import {Link} from 'react-router-dom'
+import {v4 as uuidv4} from 'uuid'
 
 const Clubs = ({clubData, setClubData, isLoading, setIsLoading}) => {
   // const [isLoading, setIsLoading] = useState(true)
@@ -34,7 +35,7 @@ const Clubs = ({clubData, setClubData, isLoading, setIsLoading}) => {
         <>
           <ClubList>
             {clubData.map((club) => (
-              <ClubItem key={club._id} club={club} setClubData={setClubData} />
+              <ClubItem key={uuidv4()} club={club} setClubData={setClubData} />
             ))}
           </ClubList>
         </>

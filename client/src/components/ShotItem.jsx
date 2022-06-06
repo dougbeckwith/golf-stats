@@ -1,18 +1,25 @@
 import React from 'react'
-// import axios from 'axios'
-// import {Link} from 'react-router-dom'
+import axios from 'axios'
 
-const ShotItem = (club, setClubData) => {
-  const id = club._id
-
-  const handleDelete = () => {
-    console.log('delete shot', `id: ${id}`)
+const ShotItem = ({id, shot, setClub, club}) => {
+  const handlePatch = async () => {
+    try {
+      const result = await axios.patch(`http://localhost:3001/clubs/${id}`, {
+        deleteShot: shot,
+        club: club,
+        shot: null,
+      })
+      console.log(result)
+      setClub(result.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
     <>
-      <p>Shot 1 {id}</p>
-      <button onClick={handleDelete}>Delete</button>
+      <p>Yards: {shot}</p>
+      <button onClick={handlePatch}>Delete</button>
     </>
   )
 }

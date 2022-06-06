@@ -34,7 +34,7 @@ const addClub = async (req, res) => {
 // @access Private
 const updateClub = async (req, res) => {
   const id = req.params.id
-  const {clubName, clubBrand, shot, club} = req.body
+  const {clubName, clubBrand, shot, club, deleteShot} = req.body
   if (clubName && clubBrand) {
     try {
       await Club.findByIdAndUpdate(id, {
@@ -52,7 +52,21 @@ const updateClub = async (req, res) => {
       {_id: id},
       {yards: [...club.yards, shot], totalShots: club.totalShots + 1}
     )
-    const data = await Club.find({})
+    const data = await Club.findOne({_id: id})
+    res.send(data)
+  }
+  if (deleteShot !== null) {
+    console.log(deleteShot)
+    await Club.findOneAndUpdate(
+      {_id: id},
+      {
+        yards: club.yards.filter((item) => {
+          return item !== deleteShot
+        }),
+        totalShots: club.totalShots - 1,
+      }
+    )
+    const data = await Club.findOne({_id: id})
     res.send(data)
   }
 }

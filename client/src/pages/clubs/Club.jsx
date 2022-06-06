@@ -4,6 +4,7 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import ShotList from '../../components/ShotList'
 import ShotItem from '../../components/ShotItem'
+import {v4 as uuidv4} from 'uuid'
 
 const Club = ({setClubData}) => {
   const navigate = useNavigate()
@@ -12,20 +13,33 @@ const Club = ({setClubData}) => {
   const [club, setClub] = useState()
   const [isLoading, setIsLoading] = useState(true)
   const [shot, setShot] = useState('')
+  // const [avgYards, setAvgYards] = useState(0)
+  // const [totalShots, setTotalShots] = useState(0)
 
   const navigateToClubs = () => {
     navigate('/clubs')
   }
+  // const getAverageYards = (club) => {
+  //   let totalYards = 0
+  //   let shots = club.totalShots
+  //   if (shots === 0) {
+  //     return 0
+  //   } else {
+  //     club.yards.forEach((shot) => {
+  //       totalYards += parseInt(shot)
+  //     })
+  //     return (totalYards / shots).toFixed()
+  //   }
+  // }
 
   useEffect(() => {
     const fetchClub = async () => {
       const result = await axios.get(`http://localhost:3001/clubs/${id}`)
-      console.log(result)
       setClub(result.data)
       setIsLoading(false)
     }
     fetchClub()
-  }, [])
+  }, [id])
 
   const handleDelete = async () => {
     try {
@@ -37,15 +51,14 @@ const Club = ({setClubData}) => {
     }
   }
 
-  // const handleEdit = () => {
-  //   console.log(`edit ${id}`)
-  // }
-
-  const handleAddShot = async () => {
+  const handleAddShot = async (e) => {
+    e.preventDefault()
     console.log('add shot', id)
+    console.log(club, {shot: shot})
     try {
       const result = await axios.patch(`http://localhost:3001/clubs/${id}`, {
         club,
+        deleteShot: null,
         shot: shot,
       })
       setClub(result.data)
@@ -88,9 +101,17 @@ const Club = ({setClubData}) => {
         <div>Loading</div>
       ) : (
         <ShotList>
-          {club.yards.map((club) => (
-            <ShotItem key={club._id} club={club} setClubData={setClubData} />
-          ))}
+          {club.yards.map((shot) => {
+            return (
+              <ShotItem
+                key={uuidv4()}
+                id={id}
+                setClub={setClub}
+                shot={shot}
+                club={club}
+              />
+            )
+          })}
         </ShotList>
       )}
     </>

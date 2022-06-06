@@ -23,7 +23,6 @@ const App = () => {
     const getAllClubData = async () => {
       try {
         const result = await axios.get(`http://localhost:3001/clubs`)
-        console.log(result.data)
         setClubData(result.data)
         setIsLoading(false)
       } catch (err) {
