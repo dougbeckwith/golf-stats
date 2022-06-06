@@ -14,7 +14,6 @@ const Club = ({setClubData}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [shot, setShot] = useState('')
   const [avgYards, setAvgYards] = useState(0)
-  const [totalShots, setTotalShots] = useState(0)
 
   const navigateToClubs = () => {
     navigate('/clubs')
@@ -104,10 +103,11 @@ const Club = ({setClubData}) => {
       ) : (
         <ShotList>
           {club.shots.map((shot) => {
+            console.log(shot.yardsId)
             return (
               <ShotItem
                 key={uuidv4()}
-                id={shot.yardsId}
+                shotId={shot.yardsId}
                 setClub={setClub}
                 shot={shot}
                 club={club}

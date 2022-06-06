@@ -6,7 +6,7 @@ const Footer = () => {
       style={{
         marginTop: 'auto',
         width: '100%',
-        height: '60px' /* Height of the footer */,
+        height: '60px',
         background: '#6cf',
       }}>
       Footer

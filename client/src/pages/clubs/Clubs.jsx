@@ -7,9 +7,7 @@ import {Link} from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid'
 
 const Clubs = ({clubData, setClubData, isLoading, setIsLoading}) => {
-  // const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    // Call Server to get Club Data
     const getAllClubData = async () => {
       try {
         const result = await axios.get(`http://localhost:3001/clubs`)

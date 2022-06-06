@@ -25,10 +25,6 @@ const EditClub = ({setIsLoading, isLoading}) => {
     fetchClub()
   }, [])
 
-  const navigateToClubs = () => {
-    navigate('/clubs')
-  }
-
   // Simple Check to see if input is empty
   const inputValid = (input) => {
     if (input !== '') {

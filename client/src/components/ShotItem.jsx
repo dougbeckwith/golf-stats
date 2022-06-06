@@ -1,16 +1,25 @@
 import React from 'react'
 import axios from 'axios'
+import {useParams} from 'react-router-dom'
 
-const ShotItem = ({id, shot, setClub, club, setAvgYards, getAverageYards}) => {
+const ShotItem = ({
+  shotId,
+  shot,
+  setClub,
+  club,
+  setAvgYards,
+  getAverageYards,
+}) => {
+  const params = useParams()
+  const id = params.id
   const handlePatch = async () => {
     try {
       const result = await axios.patch(`http://localhost:3001/clubs/${id}`, {
-        deleteShot: shot,
+        deleteShot: true,
         club: club,
         shot: null,
-        shotId: id,
+        shotId: shotId,
       })
-      console.log(result)
       setClub(result.data)
       setAvgYards(getAverageYards(result.data))
     } catch (err) {
