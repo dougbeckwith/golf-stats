@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import axios from 'axios'
 import ClubItem from '../../components/ClubItem'
 import ClubList from '../../components/ClubList'
@@ -19,6 +19,7 @@ const Clubs = ({clubData, setClubData, isLoading, setIsLoading}) => {
       }
     }
     getAllClubData()
+    // eslint-disable-next-line
   }, [])
   return (
     <>

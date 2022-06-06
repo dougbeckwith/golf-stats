@@ -19,7 +19,6 @@ const Club = ({setClubData}) => {
     navigate('/clubs')
   }
   const getAverageYards = (club) => {
-    console.log(club)
     let totalYards = 0
     let shots = club.totalShots
     if (shots === 0) {
@@ -60,9 +59,9 @@ const Club = ({setClubData}) => {
         deleteShot: null,
         shot: {yards: shot, yardsId: uuidv4()},
       })
-      console.log(result)
       setClub(result.data)
       setAvgYards(getAverageYards(result.data))
+      setShot('')
     } catch (err) {
       console.log(err)
     }
@@ -92,6 +91,7 @@ const Club = ({setClubData}) => {
         </label>
         <input
           onChange={(e) => setShot(e.target.value)}
+          value={shot}
           type='text'
           placeholder='Yards'
           style={{padding: 10}}
@@ -103,7 +103,6 @@ const Club = ({setClubData}) => {
       ) : (
         <ShotList>
           {club.shots.map((shot) => {
-            console.log(shot.yardsId)
             return (
               <ShotItem
                 key={uuidv4()}

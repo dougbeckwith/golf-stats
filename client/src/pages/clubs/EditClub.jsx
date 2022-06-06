@@ -16,7 +16,6 @@ const EditClub = ({setIsLoading, isLoading}) => {
   useEffect(() => {
     const fetchClub = async () => {
       const result = await axios.get(`http://localhost:3001/clubs/${id}`)
-      console.log(result)
       setClub(result.data)
       setClubName(result.data.clubName)
       setClubBrand(result.data.brand)
