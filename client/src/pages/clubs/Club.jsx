@@ -13,33 +13,35 @@ const Club = ({setClubData}) => {
   const [club, setClub] = useState()
   const [isLoading, setIsLoading] = useState(true)
   const [shot, setShot] = useState('')
-  // const [avgYards, setAvgYards] = useState(0)
-  // const [totalShots, setTotalShots] = useState(0)
+  const [avgYards, setAvgYards] = useState(0)
+  const [totalShots, setTotalShots] = useState(0)
 
   const navigateToClubs = () => {
     navigate('/clubs')
   }
-  // const getAverageYards = (club) => {
-  //   let totalYards = 0
-  //   let shots = club.totalShots
-  //   if (shots === 0) {
-  //     return 0
-  //   } else {
-  //     club.yards.forEach((shot) => {
-  //       totalYards += parseInt(shot)
-  //     })
-  //     return (totalYards / shots).toFixed()
-  //   }
-  // }
+  const getAverageYards = (club) => {
+    console.log(club)
+    let totalYards = 0
+    let shots = club.totalShots
+    if (shots === 0) {
+      return 0
+    } else {
+      club.shots.forEach((shot) => {
+        totalYards += parseInt(shot.yards)
+      })
+      return (totalYards / shots).toFixed()
+    }
+  }
 
   useEffect(() => {
     const fetchClub = async () => {
       const result = await axios.get(`http://localhost:3001/clubs/${id}`)
       setClub(result.data)
+      setAvgYards(getAverageYards(result.data))
       setIsLoading(false)
     }
     fetchClub()
-  }, [id])
+  }, [])
 
   const handleDelete = async () => {
     try {
@@ -53,15 +55,15 @@ const Club = ({setClubData}) => {
 
   const handleAddShot = async (e) => {
     e.preventDefault()
-    console.log('add shot', id)
-    console.log(club, {shot: shot})
     try {
       const result = await axios.patch(`http://localhost:3001/clubs/${id}`, {
         club,
         deleteShot: null,
-        shot: shot,
+        shot: {yards: shot, yardsId: uuidv4()},
       })
+      console.log(result)
       setClub(result.data)
+      setAvgYards(getAverageYards(result.data))
     } catch (err) {
       console.log(err)
     }
@@ -76,8 +78,8 @@ const Club = ({setClubData}) => {
         <div style={{paddingTop: '0px'}}>
           <p>{club.clubName}</p>
           <p>{club.brand}</p>
-          <p>Avg Yards : </p>
-          <p>Total Shots : </p>
+          <p>Avg Yards : {avgYards}</p>
+          <p>Total Shots : {club.totalShots}</p>
           <Link to={`/clubs/edit/${id}`}>
             <button>Edit Club</button>
           </Link>
@@ -101,14 +103,16 @@ const Club = ({setClubData}) => {
         <div>Loading</div>
       ) : (
         <ShotList>
-          {club.yards.map((shot) => {
+          {club.shots.map((shot) => {
             return (
               <ShotItem
                 key={uuidv4()}
-                id={id}
+                id={shot.yardsId}
                 setClub={setClub}
                 shot={shot}
                 club={club}
+                setAvgYards={setAvgYards}
+                getAverageYards={getAverageYards}
               />
             )
           })}

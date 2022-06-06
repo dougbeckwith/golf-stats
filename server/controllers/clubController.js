@@ -34,7 +34,8 @@ const addClub = async (req, res) => {
 // @access Private
 const updateClub = async (req, res) => {
   const id = req.params.id
-  const {clubName, clubBrand, shot, club, deleteShot} = req.body
+  const {clubName, clubBrand, shot, club, deleteShot, shotId} = req.body
+  // const shotId = shot.yardsId
   if (clubName && clubBrand) {
     try {
       await Club.findByIdAndUpdate(id, {
@@ -48,27 +49,30 @@ const updateClub = async (req, res) => {
     }
   }
   if (shot !== null) {
-    await Club.findOneAndUpdate(
-      {_id: id},
-      {yards: [...club.yards, shot], totalShots: club.totalShots + 1}
-    )
-    const data = await Club.findOne({_id: id})
-    res.send(data)
-  }
-  if (deleteShot !== null) {
-    console.log(deleteShot)
+    console.log('shot', shot)
     await Club.findOneAndUpdate(
       {_id: id},
       {
-        yards: club.yards.filter((item) => {
-          return item !== deleteShot
-        }),
-        totalShots: club.totalShots - 1,
+        shots: [...club.shots, shot],
+        totalShots: club.totalShots + 1,
       }
     )
     const data = await Club.findOne({_id: id})
     res.send(data)
   }
+  // if (deleteShot !== null) {
+  //   await Club.findOneAndUpdate(
+  //     {_id: id},
+  //     {
+  //       shots: club.shots.filter((item) => {
+  //         return item.yardsId !== shotId
+  //       }),
+  //       totalShots: club.totalShots - 1,
+  //     }
+  //   )
+  //   const data = await Club.findOne({_id: id})
+  //   res.send(data)
+  // }
 }
 
 // @route GET /clubs/:id
