@@ -1,13 +1,4 @@
-html, body, #root {
-    height: 100%;
-    margin:0;
-    padding:0;
-    overflow: hidden,
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-input {
-    padding: 15px;
-}
-button {
-    padding:10px;
-}

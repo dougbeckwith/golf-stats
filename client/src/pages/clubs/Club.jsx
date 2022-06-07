@@ -39,6 +39,7 @@ const Club = ({setClubData}) => {
       setIsLoading(false)
     }
     fetchClub()
+    // eslint-disable-next-line
   }, [])
 
   const handleDelete = async () => {

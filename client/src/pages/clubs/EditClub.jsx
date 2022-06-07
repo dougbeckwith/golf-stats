@@ -22,6 +22,7 @@ const EditClub = ({setIsLoading, isLoading}) => {
       setIsLoading(false)
     }
     fetchClub()
+    // eslint-disable-next-line
   }, [])
 
   // Simple Check to see if input is empty
