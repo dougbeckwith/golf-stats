@@ -74,7 +74,7 @@ const Club = ({setClubData}) => {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        <div style={{paddingTop: '0px'}}>
+        <div>
           <p>{club.clubName}</p>
           <p>{club.brand}</p>
           <p>Avg Yards : {avgYards}</p>

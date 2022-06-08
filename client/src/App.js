@@ -33,70 +33,60 @@ const App = () => {
   }, [])
 
   return (
-    <div
-      style={{
-        backgroundColor: 'white',
-        paddingLeft: '40px',
-        paddingRight: '40px',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Landing />} />
-          <Route path='/clubs' element={<Layout />}>
-            <Route
-              index
-              element={
-                <Clubs
-                  clubData={clubData}
-                  setClubData={setClubData}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                />
-              }
-            />
-            <Route
-              path=':id'
-              element={
-                <Club
-                  clubData={clubData}
-                  setClubData={setClubData}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                />
-              }
-            />
-            <Route
-              path='add'
-              element={
-                <AddClub
-                  clubData={clubData}
-                  setClubData={setClubData}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                />
-              }
-            />
-            <Route
-              path='edit/:id'
-              element={
-                <EditClub
-                  clubData={clubData}
-                  setClubData={setClubData}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                />
-              }
-            />
-          </Route>
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/*' element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='/clubs' element={<Layout />}>
+          <Route
+            index
+            element={
+              <Clubs
+                clubData={clubData}
+                setClubData={setClubData}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              />
+            }
+          />
+          <Route
+            path=':id'
+            element={
+              <Club
+                clubData={clubData}
+                setClubData={setClubData}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              />
+            }
+          />
+          <Route
+            path='add'
+            element={
+              <AddClub
+                clubData={clubData}
+                setClubData={setClubData}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              />
+            }
+          />
+          <Route
+            path='edit/:id'
+            element={
+              <EditClub
+                clubData={clubData}
+                setClubData={setClubData}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              />
+            }
+          />
+        </Route>
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/*' element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

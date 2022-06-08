@@ -23,10 +23,16 @@ const Clubs = ({clubData, setClubData, isLoading, setIsLoading}) => {
   }, [])
   return (
     <>
-      <h1>Clubs</h1>
-      <Link to='/clubs/add'>
-        <button>Add CLub</button>
-      </Link>
+      <div className=''>
+        <div className='container h-full flex gap-4 mx-auto items-center'>
+          <h1 className='text-2xl'>Clubs</h1>
+          <Link to='/clubs/add'>
+            <button className='mt-4 text-center py-3 rounded bg-green-600 text-white hover:bg-green-500 focus:outline-none my-1'>
+              Add CLub
+            </button>
+          </Link>
+        </div>
+      </div>
 
       {isLoading ? (
         <div>Loading</div>
