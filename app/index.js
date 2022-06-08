@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 let cors = require('cors')
 var path = require('path')
-// Testq
+
 let port = process.env.PORT
 if (port == null || port == '') {
   port = 3001
