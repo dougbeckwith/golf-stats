@@ -1,11 +1,15 @@
 const express = require('express')
 const app = express()
-const port = 3001
-// const dotenv = require('dotenv')
+
 const mongoose = require('mongoose')
 require('dotenv').config()
 let cors = require('cors')
 var path = require('path')
+
+let port = process.env.PORT
+if (port == null || port == '') {
+  port = 3001
+}
 
 const connectDataBase = async () => {
   try {
@@ -19,9 +23,8 @@ connectDataBase()
 
 app.use(cors())
 app.use(express.json())
-// sdf
 
-// app.use(express.static(path.join(__dirname, '/client/build')))
+app.use(express.static(path.join(__dirname, '/client/build')))
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
@@ -29,6 +32,6 @@ app.get('*', (req, res) => {
 
 app.use('/clubs', require('./routes/clubRoutes'))
 
-app.listen(process.env.PORT || 3001, () => {
+app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
