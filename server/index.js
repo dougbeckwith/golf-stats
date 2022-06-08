@@ -19,8 +19,9 @@ connectDataBase()
 
 app.use(cors())
 app.use(express.json())
+// sdf
 
-app.use(express.static(path.join(__dirname, '/client')))
+// app.use(express.static(path.join(__dirname, '/client/build')))
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
@@ -28,6 +29,6 @@ app.get('*', (req, res) => {
 
 app.use('/clubs', require('./routes/clubRoutes'))
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log(`Example app listening on port ${port}`)
 })

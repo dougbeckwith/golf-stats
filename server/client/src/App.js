@@ -17,12 +17,11 @@ import axios from 'axios'
 const App = () => {
   const [clubData, setClubData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-
   useEffect(() => {
     // Call Server to get Club Data
     const getAllClubData = async () => {
       try {
-        const result = await axios.get(`http://localhost:3001/clubs`)
+        const result = await axios.get(`${process.env.REACT_APP_URL}/clubs`)
         setClubData(result.data)
         setIsLoading(false)
       } catch (err) {

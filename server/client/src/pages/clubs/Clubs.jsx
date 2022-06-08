@@ -10,7 +10,7 @@ const Clubs = ({clubData, setClubData, isLoading, setIsLoading}) => {
   useEffect(() => {
     const getAllClubData = async () => {
       try {
-        const result = await axios.get(`http://localhost:3001/clubs`)
+        const result = await axios.get(`${process.env.REACT_APP_URL}/clubs`)
         console.log(result.data)
         setClubData(result.data)
         setIsLoading(false)
