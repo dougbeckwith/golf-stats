@@ -1,16 +1,15 @@
 const express = require('express')
 const app = express()
 const port = 3001
-const dotenv = require('dotenv')
+// const dotenv = require('dotenv')
 const mongoose = require('mongoose')
-dotenv.config({path: '../.env'})
+require('dotenv').config()
 let cors = require('cors')
+var path = require('path')
 
 const connectDataBase = async () => {
   try {
-    await mongoose.connect(
-      `mongodb+srv://deakn:${process.env.MONGO_DB_PW}@club-data.3pa1p.mongodb.net/Club-Data?retryWrites=true&w=majority`
-    )
+    await mongoose.connect(`${process.env.MONGO_URL}`)
     console.log('Connected to database')
   } catch (err) {
     console.log(err)
@@ -21,8 +20,14 @@ connectDataBase()
 app.use(cors())
 app.use(express.json())
 
+app.use(express.static(path.join(__dirname, '/client')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
+})
+
 app.use('/clubs', require('./routes/clubRoutes'))
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log(`Example app listening on port ${port}`)
 })
