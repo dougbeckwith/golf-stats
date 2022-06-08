@@ -5,12 +5,12 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 let cors = require('cors')
 var path = require('path')
-
+// Testq
 let port = process.env.PORT
 if (port == null || port == '') {
   port = 3001
 }
-
+console.log('test')
 const connectDataBase = async () => {
   try {
     await mongoose.connect(`${process.env.MONGO_URL}`)
