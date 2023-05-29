@@ -30,7 +30,7 @@ server/client.env.test.local
 server/client.env.production.local
 server/client.env.development
 
-
+test
 
 npm-debug.log*
 
